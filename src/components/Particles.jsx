@@ -7,7 +7,6 @@ const ParticlesComponent = () => {
     await loadFull(tsParticles);
   };
   const particlesLoaded = (container) => {
-    console.log(container);
   };
   return (
     <Particles

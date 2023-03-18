@@ -15,6 +15,7 @@ const Home = () => {
   const navigate = useNavigate()
 
   const [jobs, setjobs] = useState([])
+  const collectionRef = collection(database, 'job');
   useEffect(() => {
     getJobs();
   }, [])
@@ -86,7 +87,7 @@ const Home = () => {
           </div>
         </div>
         <div>
-          <img src='http://access.imglarger.com:8889/results/T58ctb06_4x.jpg' alt='/' />
+          <img src='http://get2.imglarger.com:8889/results/jqdRMkuC_4x.jpg' alt='/' />
         </div>
       </div>
 

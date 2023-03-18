@@ -43,7 +43,7 @@ const SignUp = () => {
   return (
     <>
       <Particles />
-    <div className='max-w-[400px] mx-auto min-h-[600px] px-4 py-20 shadow-2xl mt-4 rounded-2xl bg-opacity-20 backdrop-blur-md drop-shadow-lg '
+    <div className='max-w-[400px] mx-auto min-h-[600px] px-4 py-10 shadow-2xl mt-2 rounded-2xl bg-opacity-20 backdrop-blur-md drop-shadow-lg '
     >
 
       <div className='mb-4 text-center font-bold text-2xl'>
@@ -63,7 +63,7 @@ const SignUp = () => {
               <div className=' w-full mb-3'>
                 <div className='relative w-full my-2 rounded-2xl shadow-xl'>
                   <input onChange={(e) => setFname(e.target.value)}
-                    className='w-full bg-primary border border-input rounded-2xl p-2 outline-blue-400' type='text' placeholder='First Name...'
+                    className='w-full  border border-input rounded-2xl p-2 outline-blue-400' type='text' placeholder='First Name...'
                     autoComplete="true" />
                   {/* <AiFillLock className='absolute right-2 top-3 text-gray-500' /> */}
                 </div>
@@ -71,7 +71,7 @@ const SignUp = () => {
               <div className=' w-full mb-3'>
                 <div className='relative w-full my-2 rounded-2xl shadow-xl'>
                   <input onChange={(e) => setLname(e.target.value)}
-                    className='w-full bg-primary border border-input rounded-2xl p-2 outline-blue-400' type='text' placeholder='Last Name...'
+                    className='w-full  border border-input rounded-2xl p-2 outline-blue-400' type='text' placeholder='Last Name...'
                     autoComplete="true" />
                   {/* <AiFillLock className='absolute right-2 top-3 text-gray-500' /> */}
                 </div>
@@ -82,7 +82,7 @@ const SignUp = () => {
             <label>Email</label>
             <div className='relative w-full my-2 rounded-2xl shadow-xl'>
               <input onChange={(e) => setEmail(e.target.value)}
-                className='w-full bg-primary border border-input rounded-2xl p-2  outline-blue-400' type='email' placeholder='Enter your email...' />
+                className='w-full  border border-input rounded-2xl p-2  outline-blue-400' type='email' placeholder='Enter your email...' />
               <AiOutlineMail className='absolute right-2 top-3 text-gray-500' />
             </div>
           </div>
@@ -90,7 +90,7 @@ const SignUp = () => {
             <label>Password</label>
             <div className='relative w-full my-2 rounded-2xl shadow-xl'>
               <input onChange={(e) => setPassword(e.target.value)}
-                className='w-full bg-primary border border-input rounded-2xl p-2 outline-blue-400' type='password' placeholder='Enter your password...'
+                className='w-full  border border-input rounded-2xl p-2 outline-blue-400' type='password' placeholder='Enter your password...'
                 autoComplete="true" />
               <AiFillLock className='absolute right-2 top-3 text-gray-500' />
             </div>
