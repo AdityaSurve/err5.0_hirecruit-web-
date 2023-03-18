@@ -8,6 +8,7 @@ import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { useEffect, useState } from 'react';
 import JobDesc from './pages/JobDesc';
+import PostJob from './pages/PostJob';
 
 
 function App() {
@@ -33,6 +34,7 @@ function App() {
           <Route path='/signup' element={<SignUp />} />
           <Route path='/signin' element={<SignIn />} />
           <Route path='/job/:jobId' element={<JobDesc/>} />
+          <Route path='/postjob' element={<PostJob/>} />
         </Routes>
         <Footer />
       </BrowserRouter>
