@@ -1,23 +1,41 @@
-import logo from './logo.svg';
 import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Home from './pages/Home';
+import SignIn from './pages/SignIn';
+import SignUp from './pages/SignUp';
+import {AuthContextProvider} from './contexts/AuthContext';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import { useEffect, useState } from 'react';
+
 
 function App() {
+  const [isTopOfpage, setIsTopOfpage] = useState(true)
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if(window.scrollY === 0) setIsTopOfpage(true)
+      if(window.scrollY !== 0) setIsTopOfpage(false)
+    }
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  },[])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="">
+      <AuthContextProvider>
+
+      <BrowserRouter>
+        <Navbar isTopOfpage={isTopOfpage} />
+        <Routes>
+          <Route path='/' element={<Home />} />
+          <Route path='/signup' element={<SignUp />} />
+          <Route path='/signin' element={<SignIn />} />
+          
+        </Routes>
+        <Footer />
+      </BrowserRouter>
+      </AuthContextProvider>
     </div>
   );
 }
