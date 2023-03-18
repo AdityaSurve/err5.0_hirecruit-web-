@@ -1,12 +1,13 @@
 import React, { useState } from 'react'
 import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { UserAuth } from '../contexts/AuthContext'
 import './Navbar.css'
 import logoimagewhite from "./Hirecruit.png"
 import logoimageblack from "./Hirecruitblack.png"
 
 const Navbar = ({isTopOfpage}) => {
+  const nav=useNavigate()
   // const user = false
   const {user,logOut} = UserAuth()
   // console.log(user?.email)
@@ -15,6 +16,7 @@ const Navbar = ({isTopOfpage}) => {
   const handleLogout = async () => {
     try{
       await logOut()
+      nav("/")
     }catch(err){
       console.error(err.message)
     }
@@ -38,7 +40,7 @@ const Navbar = ({isTopOfpage}) => {
                 <button className=' hover:scale-105  mx-3 '>Post a Job</button>
                 <button className=' hover:scale-105  mx-3 '>Search</button>
                 <button className=' font-bold mx-1 mr-2 p-1 hover:scale-105'
-                ><Link to='/account'>Account</Link></button>
+                ><Link to='/profile'>Account</Link></button>
                 <button onClick={handleLogout}
                 className='btn p-2 rounded-xl'
                 // className='text-white bg-gradient-to-r from-indigo-500 to-purple-500 font-semibold mx-1 p-2 rounded-3xl px-3 hover:scale-105 '
