@@ -194,10 +194,7 @@ const UserProfile = () => {
                     )},[])}
                     <p>
                         <Button variant="primary" className='rounded-full' onClick={handleShoweducation}>
-                            <span><AiFillPlusCircle className='text-xl cursor-pointer ' /></span>
-                        </Button>
-                        <Button variant="primary" className='rounded-full' onClick={handleShow}>
-                            <span><AiFillMinusCircle className='text-2xl text-blue-500  hover:text-white cursor-pointer ' /></span>
+                            <span><AiFillPlusCircle className='text-2xl text-blue-500  hover:text-white cursor-pointer ' /></span>
                         </Button>
                     </p>
                 </div>
@@ -225,9 +222,6 @@ const UserProfile = () => {
                     <p>
                         <Button variant="primary" className='rounded-full' onClick={handleShowproject}>
                             <span><AiFillPlusCircle className='text-2xl text-blue-500  hover:text-white cursor-pointer ' /></span>
-                        </Button>
-                        <Button variant="primary" className='rounded-full' onClick={handleShow}>
-                            <span><AiFillMinusCircle className='text-2xl text-blue-500  hover:text-white cursor-pointer ' /></span>
                         </Button>
                     </p>
                 </div>
@@ -257,9 +251,6 @@ const UserProfile = () => {
                     <p>
                         <Button variant="primary" className='rounded-full' onClick={handleShowexper}>
                             <span><AiFillPlusCircle className='text-2xl text-blue-500  hover:text-white cursor-pointer ' /></span>
-                        </Button>
-                        <Button variant="primary" className='rounded-full' onClick={handleShow}>
-                            <span><AiFillMinusCircle className='text-2xl text-blue-500  hover:text-white cursor-pointer ' /></span>
                         </Button>
                     </p>
                 </div>
@@ -507,11 +498,11 @@ const UserProfile = () => {
                         </Form>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={handleCloseexper}>
+                        <Button variant="primary" onClick={handleCloseexper}>
                             <span className='text-black'>Close</span>
                         </Button>
                         <Button variant="primary" onClick={handleAddexp}>
-                            <span>Save </span>
+                            <span className='text-black'>Save </span>
                         </Button>
                     </Modal.Footer>
                 </Modal>
