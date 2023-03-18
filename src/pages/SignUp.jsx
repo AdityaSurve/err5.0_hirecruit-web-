@@ -11,16 +11,29 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 const SignUp = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [fname, setFname] = useState('')
+  const [lname, setLname] = useState('')
   const [error, setError] = useState('')
   const navigate = useNavigate()
-  const { signUp } = UserAuth()
+  const {signUp} = UserAuth()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     setError('')
     try {
       await signUp(email, password)
+      .then((userCredential) => {
+      const user=userCredential.user;
+      updateProfile(user,{
+        displayName: fname+" "+lname
+      })
+      setDoc(doc(database, "users", user.uid), {
+        uid:user.uid,
+        name: fname+" "+lname,
+        email: email
+      })
       navigate('/')
+    })
     } catch (err) {
       setError(err.message)
       console.log(err.message)
@@ -49,7 +62,7 @@ const SignUp = () => {
 
               <div className=' w-full mb-3'>
                 <div className='relative w-full my-2 rounded-2xl shadow-xl'>
-                  <input onChange={(e) => setPassword(e.target.value)}
+                  <input onChange={(e) => setFname(e.target.value)}
                     className='w-full bg-primary border border-input rounded-2xl p-2 outline-blue-400' type='text' placeholder='First Name...'
                     autoComplete="true" />
                   {/* <AiFillLock className='absolute right-2 top-3 text-gray-500' /> */}
@@ -57,7 +70,7 @@ const SignUp = () => {
               </div>
               <div className=' w-full mb-3'>
                 <div className='relative w-full my-2 rounded-2xl shadow-xl'>
-                  <input onChange={(e) => setPassword(e.target.value)}
+                  <input onChange={(e) => setLname(e.target.value)}
                     className='w-full bg-primary border border-input rounded-2xl p-2 outline-blue-400' type='text' placeholder='Last Name...'
                     autoComplete="true" />
                   {/* <AiFillLock className='absolute right-2 top-3 text-gray-500' /> */}

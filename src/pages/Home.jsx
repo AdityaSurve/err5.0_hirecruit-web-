@@ -2,11 +2,52 @@ import React from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import TrendingCard from '../components/TrendingCard'
 import './Home.css'
+import axios from 'axios'
+import { app, database, storage } from '../firebase-config'
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
+import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc,setDoc, onSnapshot, query, where } from "firebase/firestore";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const Home = () => {
+
+  const handleAxios=()=>{
+    console.log("hello");
+  const options = {
+    method: 'GET',
+    url: 'https://jsearch.p.rapidapi.com/search',
+    params: { query: 'developer', page: '1', num_pages: '1' },
+    headers: {
+      'X-RapidAPI-Key': '48334e4faemsh146b66580f9c961p13d654jsnfb3484c3b23a',
+      'X-RapidAPI-Host': 'jsearch.p.rapidapi.com'
+    }
+  };
+
+  axios.request(options).then(function (response) {
+    console.log(response.data.data);
+    const arr=response.data.data;
+    for (let i = 7; i < arr.length; i++) {
+      const element = arr[i];
+      setDoc(doc(database, "job", element.job_id), {
+        jobid:element.job_id,
+        title:element?.job_title?element.job_title:element.job_job_title,
+        logo:element?.employer_logo,
+        ename:element?.employer_name,
+        desc:element?.job_description,
+        type:element?.job_employment_type,
+        skills:element?.job_required_skills,
+        location:element?.job_city+" "+element?.job_state+" "+element?.job_country,
+        resp:element.job_highlights?.Responsibilities,
+        qual:element.job_highlights?.Qualifications
+      })
+      console.log("done");
+    }
+  }).catch(function (error) {
+    console.error(error);
+  });
+  }
   return (
     <div>
-
+      
       <div className='sm:grid grid-cols-2'>
         <div className='flex flex-col text-3xl font-bold  justify-center items-center '>
           <div className='text-left'>
@@ -42,7 +83,7 @@ const Home = () => {
           <TrendingCard />
         </div>
       </div>
-        </div>
+    </div>
     </div>
   )
 }
