@@ -10,12 +10,13 @@ const SignIn = () => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const navigate = useNavigate()
-  const { logIn } = UserAuth()
+  const { logIn,user } = UserAuth()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try{
       await logIn(email, password)
+      console.log(user);
       navigate('/')
     }catch(err){
       setError(err.message)
@@ -25,7 +26,7 @@ const SignIn = () => {
   return (
     <>
       <Particles />
-    <div className='max-w-[400px] mx-auto min-h-[600px] px-4 py-20 shadow-2xl mt-4 rounded-2xl z-50' >
+    <div className='max-w-[400px] mx-auto min-h-[600px] px-4 py-20 shadow-2xl mt-4 rounded-2xl bg-opacity-80 backdrop-blur-md drop-shadow-lg '>
       <div className='mb-4 text-center font-bold text-2xl' >
         SignIn
       </div>

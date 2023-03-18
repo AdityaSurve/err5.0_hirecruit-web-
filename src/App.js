@@ -9,6 +9,7 @@ import Footer from './components/Footer';
 import { useEffect, useState } from 'react';
 import JobDesc from './pages/JobDesc';
 import PostJob from './pages/PostJob';
+import UserProfile from './components/UserProfile';
 
 
 function App() {
@@ -35,6 +36,7 @@ function App() {
           <Route path='/signin' element={<SignIn />} />
           <Route path='/job/:jobId' element={<JobDesc/>} />
           <Route path='/postjob' element={<PostJob/>} />
+          <Route path='/profile' element={<UserProfile />} />
         </Routes>
         <Footer />
       </BrowserRouter>
