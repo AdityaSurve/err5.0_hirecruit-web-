@@ -134,10 +134,10 @@ const UserProfile = () => {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleClose}>
-                            <span className='text-black hover:text-white'>Close</span>
+                            <span className='text-black'>Close</span>
                         </Button>
                         <Button variant="primary" onClick={handleClose}>
-                            <span className='text-black hover:text-white'>Save </span>
+                            <span className='text-black'>Save </span>
                         </Button>
                     </Modal.Footer>
                 </Modal>
@@ -163,10 +163,10 @@ const UserProfile = () => {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleCloseskill}>
-                            <span className='text-black hover:text-white'>Close</span>
+                            <span className='text-black'>Close</span>
                         </Button>
                         <Button variant="primary" onClick={handleCloseskill}>
-                            <span className='text-black hover:text-white'>Save </span>
+                            <span className='text-black'>Save </span>
                         </Button>
                     </Modal.Footer>
                 </Modal>
@@ -198,10 +198,10 @@ const UserProfile = () => {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleCloseeducation}>
-                            <span className='text-black hover:text-white'>Close</span>
+                            <span className='text-black'>Close</span>
                         </Button>
                         <Button variant="primary" onClick={handleCloseeducation}>
-                            <span className='text-black hover:text-white'>Save </span>
+                            <span className='text-black'>Save </span>
                         </Button>
                     </Modal.Footer>
                 </Modal>
@@ -233,10 +233,10 @@ const UserProfile = () => {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleCloseproject}>
-                            <span className='text-black hover:text-white'>Close</span>
+                            <span className='text-black'>Close</span>
                         </Button>
                         <Button variant="primary" onClick={handleCloseproject}>
-                            <span className='text-black hover:text-white'>Save </span>
+                            <span className='text-black'>Save </span>
                         </Button>
                     </Modal.Footer>
                 </Modal>
@@ -268,10 +268,10 @@ const UserProfile = () => {
                     </Modal.Body>
                     <Modal.Footer>
                         <Button variant="secondary" onClick={handleCloseexper}>
-                            <span className='text-black hover:text-white'>Close</span>
+                            <span className='text-black'>Close</span>
                         </Button>
                         <Button variant="primary" onClick={handleCloseexper}>
-                            <span className='text-black hover:text-white'>Save </span>
+                            <span className='text-black'>Save </span>
                         </Button>
                     </Modal.Footer>
                 </Modal>

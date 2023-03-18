@@ -25,7 +25,7 @@ const JobDesc = () => {
             <div class=" rounded-xl overflow-hidden bg-white   justify-between items-center my-1 mx-1 p-3">
                 <div class="px-6 py-4 flex items-center">
                 <img
-                    className='w-[150px] h-[150px] object-cover'
+                    className='w-[150px]  object-cover'
                     src={job.logo?job.logo:"https://img-prod-cms-rt-microsoft-com.akamaized.net/cms/api/am/imageFileData/RE4wB6L?ver=72af"}
                     alt="Sunset in the mountains"
                 />

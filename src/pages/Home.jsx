@@ -8,8 +8,12 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, Go
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc,setDoc, onSnapshot, query, where } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { async } from '@firebase/util'
+import { useNavigate } from 'react-router-dom'
 
 const Home = () => {
+  const [search,  setSearch] = useState('')
+  const navigate = useNavigate()
+
   const [jobs, setjobs] = useState([])
   useEffect(() => {
     getJobs();
@@ -72,8 +76,10 @@ const Home = () => {
 
             <div className='flex justify-center items-center border-2 rounded-full my-3 p-1'>
 
-              <input placeholder='Search...' className='outline-none pl-2' type='text' />
-              <div className='bg-gradient-to-r from-cyan-500 to-blue-500 text-white p-3 rounded-full '>
+              <input placeholder='Search...' className='outline-none pl-2' type='text' 
+              onChange={(e) => setSearch(e.target.value)}/>
+              <div className='bg-gradient-to-r from-cyan-500 to-blue-500 text-white p-3 rounded-full cursor-pointer '
+              onClick={() => navigate(`/search/${search}`)}>
                 <AiOutlineSearch />
               </div>
             </div>

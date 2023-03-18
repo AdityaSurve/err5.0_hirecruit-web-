@@ -11,6 +11,7 @@ import JobDesc from './pages/JobDesc';
 import PostJob from './pages/PostJob';
 import UserProfile from './pages/UserProfile';
 import Search from './pages/Search';
+import Feedback from './pages/Feedback';
 
 
 function App() {
@@ -39,6 +40,8 @@ function App() {
           <Route path='/postjob' element={<PostJob/>} />
           <Route path='/profile' element={<UserProfile />} />
           <Route path='/search' element={<Search />} />
+          <Route path='/search/:topic' element={<Search />} />
+          <Route path='/feedback' element={<Feedback/>} />
         </Routes>
         <Footer />
       </BrowserRouter>
