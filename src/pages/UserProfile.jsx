@@ -66,7 +66,41 @@ const UserProfile = () => {
     }
 
     const handleAddeducation=()=>{
-        
+        updateDoc(doc(database,'users',user.uid),{
+            education:arrayUnion({
+                instname:data.instname,
+                grade:data.grade,
+                degree:data.degree,
+                duration:data.duration,
+                desc:data.desc
+            })
+          })
+          setShoweducation(false)
+    }
+
+    const handleAddproject=()=>{
+        updateDoc(doc(database,'users',user.uid),{
+            project:arrayUnion({
+                protitle:data.protitle,
+                links:data.prolinks,
+                time:data.protime,
+                desc:data.prodesc
+            })
+          })
+          setShowproject(false)
+    }
+
+    const handleAddexp=()=>{
+        updateDoc(doc(database,'users',user.uid),{
+            experience:arrayUnion({
+                title:data.exppos,
+                compname:data.expcompname,
+                time:data.exptime,
+                desc:data.expdesc,
+                loc:data.exploc
+            })
+          })
+          setShowexper(false);
     }
 
     const handleUploaddp=()=>{
@@ -142,9 +176,24 @@ const UserProfile = () => {
                     <p className='text-2xl font-semibold'>Education</p>
                 </div>
                 <div className='flex justify-between items-baseline mx-6'>
-                    <p className='my-2'>email</p>
+                    {fireuser?.education?.map((edu)=>{
+                    return (
+                       <div>
+                    <p className='my-2 text-xl'>{edu.instname}
+                    </p>
+                    <p className='my-2 text-xl'>{edu.desc}
+                    </p>
+                    <p className='my-2 text-xl'>{edu.duration}
+                    </p>
+                    <p className='my-2 text-xl'>{edu.degree}
+                    </p>
+                    <p className='my-2 text-xl'>{edu.grade}
+                    </p>
+
+                    </div>
+                    )},[])}
                     <p>
-                        <Button variant="primary" className='rounded-full' onClick={handleAddeducation}>
+                        <Button variant="primary" className='rounded-full' onClick={handleShoweducation}>
                             <span><AiFillPlusCircle className='text-xl cursor-pointer ' /></span>
                         </Button>
                         <Button variant="primary" className='rounded-full' onClick={handleShow}>
@@ -159,7 +208,20 @@ const UserProfile = () => {
                     <p className='text-2xl font-semibold'>Projects</p>
                 </div>
                 <div className='flex justify-between items-baseline mx-6'>
-                    <p className='my-2'>email</p>
+                {fireuser?.project?.map((pro)=>{
+                    return (
+                       <div>
+                    <p className='my-2 text-xl'>{pro.protitle}
+                    </p>
+                    <p className='my-2 text-xl'>{pro.links}
+                    </p>
+                    <p className='my-2 text-xl'>{pro.time}
+                    </p>
+                    <p className='my-2 text-xl'>{pro.desc}
+                    </p>
+
+                    </div>
+                    )},[])}
                     <p>
                         <Button variant="primary" className='rounded-full' onClick={handleShowproject}>
                             <span><AiFillPlusCircle className='text-2xl text-blue-500  hover:text-white cursor-pointer ' /></span>
@@ -176,7 +238,22 @@ const UserProfile = () => {
                     <p className='text-2xl font-semibold'>Experience</p>
                 </div>
                 <div className='flex justify-between items-baseline mx-6'>
-                    <p className='my-2'>email</p>
+                {fireuser?.experience?.map((exp)=>{
+                    return (
+                       <div>
+                    <p className='my-2 text-xl'>{exp.title}
+                    </p>
+                    <p className='my-2 text-xl'>{exp.compname}
+                    </p>
+                    <p className='my-2 text-xl'>{exp.loc}
+                    </p>
+                    <p className='my-2 text-xl'>{exp.desc}
+                    </p>
+                    <p className='my-2 text-xl'>{exp.time}
+                    </p>
+
+                    </div>
+                    )},[])}
                     <p>
                         <Button variant="primary" className='rounded-full' onClick={handleShowexper}>
                             <span><AiFillPlusCircle className='text-2xl text-blue-500  hover:text-white cursor-pointer ' /></span>
@@ -256,17 +333,50 @@ const UserProfile = () => {
 
                                 <Form.Label>Institute Name</Form.Label>
                                 <Form.Control
+                                    name="instname"
                                     type="text"
                                     placeholder="Name of School"
                                     autoFocus
+                                    onChange={(event) => handleInput(event)}
                                 />
                             </Form.Group>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                             <Form.Label>Grade</Form.Label>
+                             <Form.Control
+                                 name="grade"
+                                 type="text"
+                                 placeholder="Eg. CGPA or percentage"
+                                 autoFocus
+                                 onChange={(event) => handleInput(event)}
+                             />
+                         </Form.Group>
+                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                             <Form.Label>Degree</Form.Label>
+                             <Form.Control
+                                 name="degree"
+                                 type="text"
+                                 placeholder="Eg. Bachelors"
+                                 autoFocus
+                                 onChange={(event) => handleInput(event)}
+                             />
+                         </Form.Group>
+                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                             <Form.Label>Duration</Form.Label>
+                             <Form.Control
+                                 name="duration"
+                                 type="text"
+                                 placeholder="Eg. from to"
+                                 autoFocus
+                                 onChange={(event) => handleInput(event)}
+                             />
+                         </Form.Group>
                             <Form.Group
                                 className="mb-3"
                                 controlId="exampleForm.ControlTextarea1"
                             >
-                                <Form.Label>Example textarea</Form.Label>
-                                <Form.Control as="textarea" rows={3} />
+                                <Form.Label>Description</Form.Label>
+                                <Form.Control as="textarea" rows={3} name="desc"
+                                onChange={(event) => handleInput(event)} placeholder="Describe Your experience"/>
                             </Form.Group>
                         </Form>
                     </Modal.Body>
@@ -274,8 +384,8 @@ const UserProfile = () => {
                         <Button variant="secondary" onClick={handleCloseeducation}>
                             <span className='text-black'>Close</span>
                         </Button>
-                        <Button variant="primary" onClick={handleCloseeducation}>
-                            <span className='text-black'>Save </span>
+                        <Button variant="primary" onClick={handleAddeducation}>
+                            <span>Save </span>
                         </Button>
                     </Modal.Footer>
                 </Modal>
@@ -289,19 +399,42 @@ const UserProfile = () => {
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                              
 
-                                <Form.Label>Email address</Form.Label>
+                                <Form.Label>Project Title</Form.Label>
                                 <Form.Control
-                                    type="email"
-                                    placeholder="name@example.com"
+                                    type="text"
+                                    name='protitle'
+                                    placeholder="Enter the name of your project"
                                     autoFocus
+                                    onChange={(event) => handleInput(event)} 
                                 />
                             </Form.Group>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                             <Form.Label>Links</Form.Label>
+                             <Form.Control
+                                 type="text"
+                                 name='prolinks'
+                                 placeholder="Eg. Github,Devfolio etc"
+                                 autoFocus
+                                 onChange={(event) => handleInput(event)} 
+                             />
+                         </Form.Group>
+                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                             <Form.Label>Time Period</Form.Label>
+                             <Form.Control
+                                 type="text"
+                                 name='protime'
+                                 placeholder="When did you work on this project?"
+                                 autoFocus
+                                 onChange={(event) => handleInput(event)} 
+                             />
+                         </Form.Group>
                             <Form.Group
                                 className="mb-3"
                                 controlId="exampleForm.ControlTextarea1"
                             >
-                                <Form.Label>Example textarea</Form.Label>
-                                <Form.Control as="textarea" rows={3} />
+                                <Form.Label>Description</Form.Label>
+                                <Form.Control as="textarea" rows={3} name="prodesc"
+                                onChange={(event) => handleInput(event)} placeholder="Describe Your Project"/>
                             </Form.Group>
                         </Form>
                     </Modal.Body>
@@ -309,8 +442,8 @@ const UserProfile = () => {
                         <Button variant="secondary" onClick={handleCloseproject}>
                             <span className='text-black'>Close</span>
                         </Button>
-                        <Button variant="primary" onClick={handleCloseproject}>
-                            <span className='text-black'>Save </span>
+                        <Button variant="primary" onClick={handleAddproject}>
+                            <span>Save </span>
                         </Button>
                     </Modal.Footer>
                 </Modal>
@@ -320,23 +453,56 @@ const UserProfile = () => {
                         <Modal.Title>Enter your past Experience</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <Form>
+                    <Form>
                             <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                              
 
-                                <Form.Label>Email address</Form.Label>
+                                <Form.Label>Position</Form.Label>
                                 <Form.Control
-                                    type="email"
-                                    placeholder="name@example.com"
+                                    type="text"
+                                    name='exppos'
+                                    placeholder="Role in the company"
                                     autoFocus
+                                    onChange={(event) => handleInput(event)} 
                                 />
                             </Form.Group>
+                            <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                             <Form.Label>Company name</Form.Label>
+                             <Form.Control
+                                 type="text"
+                                 name='expcompname'
+                                 placeholder="Enter Company name"
+                                 autoFocus
+                                 onChange={(event) => handleInput(event)} 
+                             />
+                         </Form.Group>
+                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                             <Form.Label>Time Period</Form.Label>
+                             <Form.Control
+                                 type="text"
+                                 name='exptime'
+                                 placeholder="When did you work in this role?"
+                                 autoFocus
+                                 onChange={(event) => handleInput(event)} 
+                             />
+                         </Form.Group>
+                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
+                             <Form.Label>Location</Form.Label>
+                             <Form.Control
+                                 type="text"
+                                 name='exploc'
+                                 placeholder="Eg. City state country"
+                                 autoFocus
+                                 onChange={(event) => handleInput(event)} 
+                             />
+                         </Form.Group>
                             <Form.Group
                                 className="mb-3"
                                 controlId="exampleForm.ControlTextarea1"
                             >
-                                <Form.Label>Example textarea</Form.Label>
-                                <Form.Control as="textarea" rows={3} />
+                                <Form.Label>Description</Form.Label>
+                                <Form.Control as="textarea" rows={3} name="expdesc"
+                                onChange={(event) => handleInput(event)} placeholder="Describe Your Experience"/>
                             </Form.Group>
                         </Form>
                     </Modal.Body>
@@ -344,8 +510,8 @@ const UserProfile = () => {
                         <Button variant="secondary" onClick={handleCloseexper}>
                             <span className='text-black'>Close</span>
                         </Button>
-                        <Button variant="primary" onClick={handleCloseexper}>
-                            <span className='text-black'>Save </span>
+                        <Button variant="primary" onClick={handleAddexp}>
+                            <span>Save </span>
                         </Button>
                     </Modal.Footer>
                 </Modal>
