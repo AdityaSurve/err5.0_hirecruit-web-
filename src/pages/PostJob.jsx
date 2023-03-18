@@ -118,7 +118,7 @@ const UserProfile = () => {
         <div>
             <p className='text-2xl mt-2 ml-6 mb-3 font-bold'>Jobs Created by You</p>
             <hr></hr>
-            <div className=' grid grid-cols-3 overflow-y-scroll min-h-[680px] max-h-[680px]'>
+            <div className=' grid grid-cols-3 overflow-y-scroll min-h-[680px] '>
 
                 {jobs.map((item) => {
                     return (
