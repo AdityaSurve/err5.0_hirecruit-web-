@@ -36,11 +36,11 @@ const Navbar = ({isTopOfpage}) => {
               <div className='hidden md:block'>
                 <button className=' hover:scale-105  mx-3 '>Home</button>
                 <button className=' hover:scale-105  mx-3 '>Post a Job</button>
-                <button className=' hover:scale-105  mx-3 '>Search</button>
+                <button className=' hover:scale-105  mx-3 '><Link to='/search'>Search</Link></button>
                 <button className=' font-bold mx-1 mr-2 p-1 hover:scale-105'
                 ><Link to='/account'>Account</Link></button>
                 <button onClick={handleLogout}
-                className='btn p-2 rounded-xl'
+                className='navbutton p-2 rounded-xl'
                 // className='text-white bg-gradient-to-r from-indigo-500 to-purple-500 font-semibold mx-1 p-2 rounded-3xl px-3 hover:scale-105 '
                 ><span>SignOut</span></button>
               </div>
@@ -49,11 +49,11 @@ const Navbar = ({isTopOfpage}) => {
             <div className="hidden md:block">
               <button className=' hover:scale-105  mx-3 '>Home</button>
               <button className=' hover:scale-105  mx-3 '>Post a Job</button>
-              <button className=' hover:scale-105  mx-3 '>Search</button>
+              <button className=' hover:scale-105  mx-3 '><Link to='/search'>Search</Link></button>
               <button className=' font-bold mx-1 mr-2 hover:scale-105  p-2 rounded-xl'
               ><Link to='/signup'>Sign Up</Link></button>
               <button 
-              className='btn p-2 rounded-xl'
+              className='navbutton p-2 rounded-xl'
               // className='text-white bg-gradient-to-r from-indigo-500 to-purple-500   font-semibold mx-1 py-2 my-1 rounded-3xl px-3 hover:scale-105'
               ><Link to='/signin'><span>Sign In</span></Link></button>
             </div>

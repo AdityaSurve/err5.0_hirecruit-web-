@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
-import { AiFillFileAdd, AiFillMinusCircle, AiFillPlusCircle, AiOutlineEdit } from 'react-icons/ai';
+import {  AiFillMinusCircle, AiFillPlusCircle, AiOutlineEdit } from 'react-icons/ai';
 
 const PostJob = () => {
     const [show, setShow] = useState(false);

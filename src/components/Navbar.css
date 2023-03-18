@@ -6,7 +6,7 @@
   }
   
 
-  .btn {
+  .navbutton {
     border: none;
     text-align: center;
     cursor: pointer;
@@ -23,12 +23,12 @@
     box-shadow: 0 5px 15px rgba(0,0,0,0.20);
   }
   
-  .btn span {
+  .navbutton span {
     position: relative; 
     z-index: 1;
   }
   
-  .btn:after {
+  .navbutton:after {
     content: "";
     position: absolute;
     left: 0;
@@ -42,7 +42,7 @@
     transform: translateX(-110%) translateY(-25%) rotate(45deg);
   }
   
-  .btn:hover:after {
+  .navbutton:hover:after {
     -webkit-transform: translateX(29%) translateY(-25%) rotate(45deg);
     transform: translateX(30%) translateY(-25%) rotate(45deg);
   }
