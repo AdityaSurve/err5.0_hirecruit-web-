@@ -22,7 +22,7 @@ const Navbar = ({isTopOfpage}) => {
     <div className='sticky top-0 left-0  z-50 rounded-2xl  
     height-40 font-semibold '>
 
-      <div className={`${isTopOfpage ? 'bg-transparent text-black' : 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white'} drop-shadow-lg shadow-2xl  p-1`}>
+      <div className={`${isTopOfpage ? 'bg-white text-black' : 'bg-gradient-to-r from-cyan-500 to-blue-500 text-white'} drop-shadow-lg shadow-2xl  p-1`}>
         <div className='flex justify-between items-center'>
           <div className=''>
             <h1 className='font-extrabold text-2xl cursor-pointer  underline decoration-indigo-500  ml-3 '>
