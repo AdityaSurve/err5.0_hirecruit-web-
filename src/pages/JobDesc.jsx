@@ -35,7 +35,7 @@ const JobDesc = () => {
                     />
                     <div className='flex flex-col ml-5'>
                         <div class="font-bold text-3xl mb-3">{job.title}</div>
-                        <div className='font-semibold text-green-600 h-min  mb-2 text-sm bg-green-200 border-2 border-green-500 w-min rounded-xl px-2'>{job.ename}</div>
+                        <div className='flex font-semibold text-green-600 h-min  mb-2 text-sm bg-green-200 border-2 border-green-500  rounded-xl px-2'>{job.ename}</div>
                     </div>
                 </div>
                 <div>

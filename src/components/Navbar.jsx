@@ -44,7 +44,7 @@ const Navbar = ({isTopOfpage}) => {
                 <button onClick={handleLogout}
                 className='navbutton p-2 rounded-xl'
                 // className='text-white bg-gradient-to-r from-indigo-500 to-purple-500 font-semibold mx-1 p-2 rounded-3xl px-3 hover:scale-105 '
-                ><span>SignOut</span></button>
+                ><span className='text-white'>SignOut</span></button>
               </div>
             </div>
           ) : (
@@ -57,7 +57,7 @@ const Navbar = ({isTopOfpage}) => {
               <button 
               className='navbutton p-2 rounded-xl'
               // className='text-white bg-gradient-to-r from-indigo-500 to-purple-500   font-semibold mx-1 py-2 my-1 rounded-3xl px-3 hover:scale-105'
-              ><Link to='/signin'><span>Sign In</span></Link></button>
+              ><Link to='/signin'><span className='text-white'>Sign In</span></Link></button>
             </div>
           )}
           <div onClick={() => setSidebar(!sidebar)}

@@ -129,7 +129,7 @@ const UserProfile = () => {
       };
 
     return (
-        <div className='min-h-[700px]'>
+        <div className='min-h-[700px] mx-[50px]'>
             <div className='flex items-center mt-10 mb-3'>
                 <div className='flex items-baseline'>
                     <img className='rounded-full h-[90px] w-[90px]'
