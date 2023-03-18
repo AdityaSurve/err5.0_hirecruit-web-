@@ -33,7 +33,7 @@ const Search = () => {
     <div className='min-h-[630px] '>
       <div className='flex flex-col  justify-center space-x-4 mt-6'>
 
-        <div className="flex  justify-center space-x-4 my-6 ">
+        <div className="flex  justify-center space-x-4 my-3">
           <input
             type="text"
             value={searchTerm ? searchTerm : topic}
@@ -57,7 +57,7 @@ const Search = () => {
           </button>
         </div>
         <hr></hr>
-        <div className='max-h-[680px] flex flex-col  justify-center items-center overflow-y-scroll'>
+        <div className='max-h-[680px] flex flex-col pt-[350px]  justify-center items-center overflow-y-scroll'>
 
         {jobs.map((item) => {
           

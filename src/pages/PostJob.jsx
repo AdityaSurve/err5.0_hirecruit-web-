@@ -10,13 +10,16 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, Go
 import { collection, addDoc, getDoc, getDocs, doc, updateDoc, deleteDoc, setDoc, onSnapshot, query, where, arrayUnion, arrayRemove } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { UserAuth } from '../contexts/AuthContext'
-import TrendingCard from '../components/TrendingCard';
-import { useNavigate } from 'react-router';
-import Card from '../components/Card';
-import { Link } from 'react-router-dom';
+import { async } from '@firebase/util';
+import Card from "../components/Card"
+import { useNavigate } from 'react-router-dom';
 
-const UserProfile = () => {
+const PostJob = () => {
     const [data, setdata] = useState({})
+    const [reqdskills, setreqdskills] = useState([])
+    const [reqdquals, setreqdquals] = useState([])
+    const [reqdbens, setreqdbens] = useState([])
+    const [reqdresps, setreqdresps] = useState([])
     const { user } = UserAuth()
     const [fireuser, setfireuser] = useState({})
     const [show, setShow] = useState(false);
@@ -25,6 +28,22 @@ const UserProfile = () => {
     useEffect(() => {
         getfireuser()
     }, [fireuser.skills])
+
+    const [search, setSearch] = useState('')
+    const navigate = useNavigate()
+
+    const [jobs, setjobs] = useState([])
+    const collectionRef = collection(database, 'job');
+    useEffect(() => {
+        getJobs();
+    }, [])
+
+    const getJobs = async () => {
+        const collectionRef = collection(database, "job");
+        onSnapshot(collectionRef, (hacklist) => {
+            setjobs(hacklist.docs);
+        })
+    }
 
 
     const handleClose = () => setShow(false);
@@ -56,61 +75,62 @@ const UserProfile = () => {
         setfireuser(docSnap.data())
     }
 
-    const handleAddskill = () => {
-        updateDoc(doc(database, 'users', user.uid), {
-            skills: arrayUnion(data.skill)
-        })
+    const handleAddskill = async () => {
+        const element = data.reqdskill
+        reqdskills.push(element)
+        setreqdskills(Object.values(reqdskills))
+        console.log(reqdskills);
+        console.log(typeof (reqdskills));
         setShowskill(false)
+    }
+    const handleAddqual = async () => {
+        const element = data.qual
+        reqdquals.push(element)
+        setreqdquals(Object.values(reqdquals))
+        setShowexper(false)
+    }
+
+    const handleAddresp = async () => {
+        const element = data.resp
+        reqdresps.push(element)
+        setreqdresps(Object.values(reqdresps))
+        setShoweducation(false)
+    }
+
+    const handleAddben = async () => {
+        const element = data.ben
+        reqdbens.push(element)
+        setreqdbens(Object.values(reqdbens))
+        setShowproject(false)
     }
 
     const handleDelskill = (skill) => {
-        updateDoc(doc(database, 'users', user.uid), {
-            skills: arrayRemove(skill)
-        })
+        // updateDoc(doc(database, 'users', user.uid), {
+        //     skills: arrayRemove(skill)
+        // })
     }
 
-    const handleAddeducation = () => {
-
-    }
-
-    const handleUploaddp = () => {
-        console.log("bwebfubwu");
-        const storageRef = ref(storage, user.uid);
-        const uploadTask = uploadBytesResumable(storageRef, image)
-        uploadTask.on('state_changed',
-            (snapshot) => {
-            },
-            (error) => {
-            },
-            () => {
-                getDownloadURL(uploadTask.snapshot.ref).then(async (downloadURL) => {
-                    console.log('File available at', downloadURL);
-                    await updateDoc(doc(database, 'users', user.uid), {
-                        imageURL: downloadURL
-                    })
-                });
-                setShow(false)
-            });
-    }
 
     const handleInput = (event) => {
         let newInput = { [event.target.name]: event.target.value };
         setdata({ ...data, ...newInput });
+        console.log(data);
     };
 
-    const [search, setSearch] = useState('')
-    const navigate = useNavigate()
-
-    const [jobs, setjobs] = useState([])
-    const collectionRef = collection(database, 'job');
-    useEffect(() => {
-        getJobs();
-    }, [])
-
-    const getJobs = async () => {
-        const collectionRef = collection(database, "job");
-        onSnapshot(collectionRef, (hacklist) => {
-            setjobs(hacklist.docs);
+    const handlePost = async () => {
+        const docRef = await addDoc(collection(database, "job"), {
+            title: data?.title,
+            type: data?.type,
+            location: data?.loc,
+            desc: data?.desc,
+            ename: fireuser?.name,
+            logo: fireuser?.imageURL,
+            qual: arrayUnion(...reqdquals),
+            resp: arrayUnion(...reqdresps),
+            skills: arrayUnion(...reqdskills)
+        });
+        updateDoc(doc(database, 'job', docRef.id), {
+            jobid: docRef.id
         })
     }
 
@@ -118,7 +138,7 @@ const UserProfile = () => {
         <div>
             <p className='text-2xl mt-2 ml-6 mb-3 font-bold'>Jobs Created by You</p>
             <hr></hr>
-            <div className=' grid grid-cols-3 overflow-y-scroll min-h-[680px] '>
+            <div className=' grid grid-cols-3 overflow-y-scroll min-h-[680px] max-h-[680px]'>
 
                 {jobs.map((item) => {
                     return (
@@ -126,13 +146,13 @@ const UserProfile = () => {
                     );
                 }, [])}
                 <div className='m-2'>
-                    <div className="max-w-[900px] h-full max-h-[400px]   rounded-xl overflow-hidden shadow-2xl justify-between items-center my-1 mx-1 p-3">
+                    <div className="max-w-[900px] h-full max-h-[400px] min-h-[400px]   rounded-xl overflow-hidden shadow-2xl justify-between items-center my-1 mx-1 p-3">
                         <div className=" flex h-full text-blue-500 justify-center items-center">
                             <div className='bg-green-200 rounded-full p-3'>
 
-                            <div className='text-5xl cursor-pointer'>
-                                <a href='#mydiv'><AiFillPlusCircle /></a>
-                            </div>
+                                <div className='text-5xl cursor-pointer'>
+                                    <a href='#mydiv'><AiFillPlusCircle /></a>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -150,9 +170,9 @@ const UserProfile = () => {
 
                     <div className='ml-6'>
                         <p className='text-xl font-semibold'>
-                            <input type='text' className='w-full border border-input text-xl rounded-2xl p-2 outline-blue-400' placeholder='Job Title' />
+                            <input type='text' name='title' className='w-full border border-input text-xl rounded-2xl p-2 outline-blue-400' placeholder='Job Title' onChange={(event) => handleInput(event)} />
                         </p>
-                        <p><input type='text' className='w-full border border-input rounded-2xl p-2 outline-blue-400 mt-2' placeholder='Employer Name' /></p>
+                        <p><input type='text' name='ename' className='w-full border border-input rounded-2xl p-2 outline-blue-400 mt-2' placeholder='Employer Name' onChange={(event) => handleInput(event)} /></p>
                     </div>
                 </div>
                 <hr></hr>
@@ -161,29 +181,36 @@ const UserProfile = () => {
                     <div className='ml-5 my-3'>
                         <p className='text-xl font-semibold m-2'>Job Type</p>
                         <p className='text-sm font-semibold'>
-                            <select
+                            <select onChange={(event) => handleInput(event)}
                                 className="py-1 px-2 rounded-md border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                                name='type'
                             >
-                                <option value="filter1">FULLTIME</option>
-                                <option value="filter2">HALFTIME</option>
+                                <option value="FULLTIME">FULLTIME</option>
+                                <option value="HALFTIME">HALFTIME</option>
                             </select>
                         </p>
                     </div>
                     <div className='ml-5 my-3'>
                         <p className='text-xl font-semibold m-2'>Job Location</p>
                         <p className='text-xl font-semibold'>
-                            <input type='text' className=' border border-input rounded-2xl px-2 outline-blue-400' placeholder='Location' />
+                            <input name='loc' type='text' className=' border border-input rounded-2xl px-2 outline-blue-400' placeholder='Location' onChange={(event) => handleInput(event)} />
                         </p>
                     </div>
                 </div>
                 <hr></hr>
+                <div className='ml-5 my-3'>
+                    <p className='text-xl font-semibold m-2'>Job Description</p>
+                    <textarea name='desc' type='text' cols='100' rows='10'
+                        className='border-2 p-3 text-md' onChange={(event) => handleInput(event)} />
+                </div>
+                <hr></hr>
                 <div className=' mt-10 mb-3'>
                     <div className='ml-6'>
-                        <p className='text-2xl font-semibold'>Skills</p>
+                        <p className='text-2xl font-semibold'>Required Skills</p>
                     </div>
                     <div className='flex justify-between items-baseline mx-6'>
                         <div className='flex gap-3'>
-                            {fireuser?.skills?.map((skill) => {
+                            {reqdskills?.map((skill) => {
                                 return (
                                     // <span className='my-2 text-white bg-blue-500 m-1 p-2 rounded-xl'>{skill} <span><AiOutlineCloseCircle /></span></span>
 
@@ -205,16 +232,18 @@ const UserProfile = () => {
                 <hr></hr>
                 <div className=' mt-10 mb-3'>
                     <div className='ml-6'>
-                        <p className='text-2xl font-semibold'>Education</p>
+                        <p className='text-2xl font-semibold'>Responsibilities</p>
                     </div>
                     <div className='flex justify-between items-baseline mx-6'>
-                        <p className='my-2'>email</p>
+                        <div className='flex-col'>
+                            {reqdresps?.map((skill) => {
+                                return (
+                                    <p>{skill}</p>)
+                            }, [])}
+                        </div>
                         <p>
-                            <Button variant="primary" className='rounded-full' onClick={handleAddeducation}>
-                                <span><AiFillPlusCircle className='text-xl cursor-pointer ' /></span>
-                            </Button>
-                            <Button variant="primary" className='rounded-full' onClick={handleShow}>
-                                <span><AiFillMinusCircle className='text-2xl text-blue-500  hover:text-white cursor-pointer ' /></span>
+                            <Button variant="primary" className='rounded-full' onClick={handleShoweducation}>
+                                <span><AiFillPlusCircle className='text-2xl text-blue-500  hover:text-white cursor-pointer ' /></span>
                             </Button>
                         </p>
                     </div>
@@ -222,63 +251,47 @@ const UserProfile = () => {
                 <hr></hr>
                 <div className=' mt-10 mb-3'>
                     <div className='ml-6'>
-                        <p className='text-2xl font-semibold'>Projects</p>
+                        <p className='text-2xl font-semibold'>Benefits</p>
                     </div>
                     <div className='flex justify-between items-baseline mx-6'>
-                        <p className='my-2'>email</p>
+                        <div className='flex-col'>
+                            {reqdbens?.map((skill) => {
+                                return (
+                                    <p>{skill}</p>)
+                            }, [])}
+                        </div>
                         <p>
                             <Button variant="primary" className='rounded-full' onClick={handleShowproject}>
                                 <span><AiFillPlusCircle className='text-2xl text-blue-500  hover:text-white cursor-pointer ' /></span>
                             </Button>
-                            <Button variant="primary" className='rounded-full' onClick={handleShow}>
-                                <span><AiFillMinusCircle className='text-2xl text-blue-500  hover:text-white cursor-pointer ' /></span>
-                            </Button>
                         </p>
                     </div>
                 </div>
                 <hr></hr>
                 <div className=' mt-10 mb-3'>
                     <div className='ml-6'>
-                        <p className='text-2xl font-semibold'>Experience</p>
+                        <p className='text-2xl font-semibold'>Qualifications</p>
                     </div>
                     <div className='flex justify-between items-baseline mx-6'>
-                        <p className='my-2'>email</p>
+                        <div className='flex-col'>
+                            {reqdquals?.map((skill) => {
+                                return (
+                                    <p>{skill}</p>)
+                            }, [])}
+                        </div>
                         <p>
                             <Button variant="primary" className='rounded-full' onClick={handleShowexper}>
                                 <span><AiFillPlusCircle className='text-2xl text-blue-500  hover:text-white cursor-pointer ' /></span>
                             </Button>
-                            <Button variant="primary" className='rounded-full' onClick={handleShow}>
-                                <span><AiFillMinusCircle className='text-2xl text-blue-500  hover:text-white cursor-pointer ' /></span>
-                            </Button>
                         </p>
                     </div>
                 </div>
+                <hr></hr>
+                <div className='min-h-[100px]'>
+                    <button className='text-2xl text-white font-semibold bg-blue-500 rounded-xl p-2 mt-6 px-5 py-6 hover:border-2 hover:border-blue-400' onClick={handlePost}
+                    >Post</button>
+                </div>
                 <>
-
-                    <Modal show={show} onHide={handleClose}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Enter New Photo</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Form>
-                                <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
-                                    <input type="file"
-                                        id="avatar" name="avatar"
-                                        accept="image/png, image/jpeg"
-                                        onChange={(e) => setimage(e.target.files[0])}>
-                                    </input>
-                                </Form.Group>
-                            </Form>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>
-                                <span className='text-black'>Close</span>
-                            </Button>
-                            <Button variant="primary" onClick={handleUploaddp}>
-                                <span>Save </span>
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
 
                     <Modal show={showskill} onHide={handleCloseskill}>
                         <Modal.Header closeButton>
@@ -291,7 +304,7 @@ const UserProfile = () => {
 
                                     <Form.Label>Skills</Form.Label>
                                     <Form.Control
-                                        name="skill"
+                                        name="reqdskill"
                                         type="text"
                                         placeholder="ex. JavaScript..."
                                         autoFocus
@@ -306,33 +319,28 @@ const UserProfile = () => {
                                 <span className='text-black'>Close</span>
                             </Button>
                             <Button variant="primary" onClick={handleAddskill}>
-                                <span>Save </span>
+                                <span className='text-black'>Save </span>
                             </Button>
                         </Modal.Footer>
                     </Modal>
 
                     <Modal show={showeducation} onHide={handleCloseeducation}>
                         <Modal.Header closeButton>
-                            <Modal.Title>Education Details</Modal.Title>
+                            <Modal.Title>Responsibilities</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <Form>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
 
 
-                                    <Form.Label>Institute Name</Form.Label>
+                                    <Form.Label>Responsibilities</Form.Label>
                                     <Form.Control
+                                        name='resp'
                                         type="text"
-                                        placeholder="Name of School"
+                                        placeholder="Enter the expected responsibilities"
                                         autoFocus
+                                        onChange={(event) => handleInput(event)}
                                     />
-                                </Form.Group>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="exampleForm.ControlTextarea1"
-                                >
-                                    <Form.Label>Example textarea</Form.Label>
-                                    <Form.Control as="textarea" rows={3} />
                                 </Form.Group>
                             </Form>
                         </Modal.Body>
@@ -340,7 +348,7 @@ const UserProfile = () => {
                             <Button variant="secondary" onClick={handleCloseeducation}>
                                 <span className='text-black'>Close</span>
                             </Button>
-                            <Button variant="primary" onClick={handleCloseeducation}>
+                            <Button variant="primary" onClick={handleAddresp}>
                                 <span className='text-black'>Save </span>
                             </Button>
                         </Modal.Footer>
@@ -348,26 +356,21 @@ const UserProfile = () => {
 
                     <Modal show={showproject} onHide={handleCloseproject}>
                         <Modal.Header closeButton>
-                            <Modal.Title>Enter Details for your projects</Modal.Title>
+                            <Modal.Title>Enter Benefits provided in the job</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <Form>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
 
 
-                                    <Form.Label>Email address</Form.Label>
+                                    <Form.Label>Benefits</Form.Label>
                                     <Form.Control
-                                        type="email"
-                                        placeholder="name@example.com"
+                                        name="ben"
+                                        type="text"
+                                        placeholder="enter benefit provided"
                                         autoFocus
+                                        onChange={(event) => handleInput(event)}
                                     />
-                                </Form.Group>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="exampleForm.ControlTextarea1"
-                                >
-                                    <Form.Label>Example textarea</Form.Label>
-                                    <Form.Control as="textarea" rows={3} />
                                 </Form.Group>
                             </Form>
                         </Modal.Body>
@@ -375,7 +378,7 @@ const UserProfile = () => {
                             <Button variant="secondary" onClick={handleCloseproject}>
                                 <span className='text-black'>Close</span>
                             </Button>
-                            <Button variant="primary" onClick={handleCloseproject}>
+                            <Button variant="primary" onClick={handleAddben}>
                                 <span className='text-black'>Save </span>
                             </Button>
                         </Modal.Footer>
@@ -383,26 +386,21 @@ const UserProfile = () => {
 
                     <Modal show={showexper} onHide={handleCloseexper}>
                         <Modal.Header closeButton>
-                            <Modal.Title>Enter your past Experience</Modal.Title>
+                            <Modal.Title>Enter the Qualifications required</Modal.Title>
                         </Modal.Header>
                         <Modal.Body>
                             <Form>
                                 <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
 
 
-                                    <Form.Label>Email address</Form.Label>
+                                    <Form.Label>Qualifications</Form.Label>
                                     <Form.Control
-                                        type="email"
-                                        placeholder="name@example.com"
+                                        name='qual'
+                                        type="text"
+                                        placeholder="Enter reqd qualifications"
                                         autoFocus
+                                        onChange={(event) => handleInput(event)}
                                     />
-                                </Form.Group>
-                                <Form.Group
-                                    className="mb-3"
-                                    controlId="exampleForm.ControlTextarea1"
-                                >
-                                    <Form.Label>Example textarea</Form.Label>
-                                    <Form.Control as="textarea" rows={3} />
                                 </Form.Group>
                             </Form>
                         </Modal.Body>
@@ -410,15 +408,15 @@ const UserProfile = () => {
                             <Button variant="secondary" onClick={handleCloseexper}>
                                 <span className='text-black'>Close</span>
                             </Button>
-                            <Button variant="primary" onClick={handleCloseexper}>
+                            <Button variant="primary" onClick={handleAddqual}>
                                 <span className='text-black'>Save </span>
                             </Button>
                         </Modal.Footer>
                     </Modal>
                 </>
             </div>
-        </div>
-    )
+            </div>
+            )
 }
 
-export default UserProfile
+export default PostJob
