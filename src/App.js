@@ -7,6 +7,7 @@ import {AuthContextProvider} from './contexts/AuthContext';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import { useEffect, useState } from 'react';
+import JobDesc from './pages/JobDesc';
 
 
 function App() {
@@ -31,7 +32,7 @@ function App() {
           <Route path='/' element={<Home />} />
           <Route path='/signup' element={<SignUp />} />
           <Route path='/signin' element={<SignIn />} />
-          
+          <Route path='/job/:jobId' element={<JobDesc/>} />
         </Routes>
         <Footer />
       </BrowserRouter>

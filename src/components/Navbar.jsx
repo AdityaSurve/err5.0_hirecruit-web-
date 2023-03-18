@@ -3,6 +3,8 @@ import { AiOutlineClose, AiOutlineMenu } from 'react-icons/ai'
 import { Link } from 'react-router-dom'
 import { UserAuth } from '../contexts/AuthContext'
 import './Navbar.css'
+import logoimagewhite from "./Hirecruit.png"
+import logoimageblack from "./Hirecruitblack.png"
 
 const Navbar = ({isTopOfpage}) => {
   // const user = false
@@ -26,7 +28,7 @@ const Navbar = ({isTopOfpage}) => {
         <div className='flex justify-between items-center'>
           <div className=''>
             <h1 className='font-extrabold text-2xl cursor-pointer  underline decoration-indigo-500  ml-3 '>
-              <Link to='/' className='font-serif'>HireVerse</Link></h1>
+              <Link to='/' className='font-serif'><img className='h-[25px]' src={isTopOfpage ? logoimageblack : logoimagewhite} alt='HireVerse'/></Link></h1>
           </div>
 
           {user?.email ? (

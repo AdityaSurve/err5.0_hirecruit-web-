@@ -32,9 +32,9 @@ const Home = () => {
       <div className='flex justify-center items-center flex-col '>
         <div className='border-2 m-3 p-6 rounded-xl'>
 
-        <div className='text-xl font-semibold my-2 text-center'>Trending Jobs</div>
+        <div className='text-xl font-semibold my-2 text-center'>Recommended Jobs</div>
         <hr></hr>
-        <div className='flex flex-col'>
+        <div className='flex flex-col overflow-y-scroll max-h-[500px]'>
           <TrendingCard />
           <TrendingCard />
           <TrendingCard />

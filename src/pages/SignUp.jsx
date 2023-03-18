@@ -46,7 +46,7 @@ const SignUp = () => {
               <div className=' w-full mb-3'>
                 <div className='relative w-full my-2 rounded-2xl shadow-xl'>
                   <input onChange={(e) => setPassword(e.target.value)}
-                    className='w-full bg-primary border border-input rounded-2xl p-2 outline-blue-400' type='password' placeholder='First Name...'
+                    className='w-full bg-primary border border-input rounded-2xl p-2 outline-blue-400' type='text' placeholder='First Name...'
                     autoComplete="true" />
                   {/* <AiFillLock className='absolute right-2 top-3 text-gray-500' /> */}
                 </div>
@@ -54,7 +54,7 @@ const SignUp = () => {
               <div className=' w-full mb-3'>
                 <div className='relative w-full my-2 rounded-2xl shadow-xl'>
                   <input onChange={(e) => setPassword(e.target.value)}
-                    className='w-full bg-primary border border-input rounded-2xl p-2 outline-blue-400' type='password' placeholder='Last Name...'
+                    className='w-full bg-primary border border-input rounded-2xl p-2 outline-blue-400' type='text' placeholder='Last Name...'
                     autoComplete="true" />
                   {/* <AiFillLock className='absolute right-2 top-3 text-gray-500' /> */}
                 </div>

@@ -25,7 +25,7 @@ const SignIn = () => {
   return (
     <>
       <Particles />
-    <div className='max-w-[400px] mx-auto min-h-[600px] px-4 py-20 shadow-2xl mt-4 rounded-2xl ' style={{zIndex:"1"}}>
+    <div className='max-w-[400px] mx-auto min-h-[600px] px-4 py-20 shadow-2xl mt-4 rounded-2xl z-50' >
       <div className='mb-4 text-center font-bold text-2xl' >
         SignIn
       </div>
