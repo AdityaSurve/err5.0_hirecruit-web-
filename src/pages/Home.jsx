@@ -8,9 +8,12 @@ import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, Go
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc,setDoc, onSnapshot, query, where } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { async } from '@firebase/util'
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
+  const navigate = useNavigate()
   const [jobs, setjobs] = useState([])
+  const collectionRef = collection(database, 'job');
   useEffect(() => {
     getJobs();
   }, [])
@@ -74,7 +77,8 @@ const Home = () => {
 
               <input placeholder='Search...' className='outline-none pl-2' type='text' />
               <div className='bg-gradient-to-r from-cyan-500 to-blue-500 text-white p-3 rounded-full '>
-                <AiOutlineSearch />
+              <AiOutlineSearch />
+                
               </div>
             </div>
           </div>
