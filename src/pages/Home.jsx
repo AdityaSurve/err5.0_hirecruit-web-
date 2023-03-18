@@ -1,4 +1,4 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import { AiOutlineSearch } from 'react-icons/ai'
 import TrendingCard from '../components/TrendingCard'
 import './Home.css'
@@ -7,8 +7,21 @@ import { app, database, storage } from '../firebase-config'
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
 import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc,setDoc, onSnapshot, query, where } from "firebase/firestore";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { async } from '@firebase/util'
 
 const Home = () => {
+  const [jobs, setjobs] = useState([])
+  useEffect(() => {
+    getJobs();
+  }, [])
+
+  const getJobs=async()=>{
+    const collectionRef = collection(database, "job");
+    onSnapshot(collectionRef, (hacklist) => {
+      setjobs(hacklist.docs);
+    })
+  }
+  
 
   const handleAxios=()=>{
     console.log("hello");
@@ -45,6 +58,8 @@ const Home = () => {
     console.error(error);
   });
   }
+
+
   return (
     <div>
       
@@ -76,11 +91,13 @@ const Home = () => {
         <div className='text-xl font-semibold my-2 text-center'>Recommended Jobs</div>
         <hr></hr>
         <div className='flex flex-col overflow-y-scroll max-h-[500px]'>
-          <TrendingCard />
-          <TrendingCard />
-          <TrendingCard />
-          <TrendingCard />
-          <TrendingCard />
+          
+          {jobs.map((item) => {
+            
+          return (
+            <TrendingCard job={item.data()}/>
+          );
+        }, [])}
         </div>
       </div>
     </div>
