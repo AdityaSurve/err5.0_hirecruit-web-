@@ -2,7 +2,11 @@ import React, { useState } from 'react'
 import { AiFillLock, AiOutlineClose, AiOutlineMail } from 'react-icons/ai'
 import { Link, useNavigate } from 'react-router-dom'
 import { UserAuth } from '../contexts/AuthContext'
-import Particles from "../components/Particles";
+import Particles from '../components/Particles'
+import { app, database, storage } from '../firebase-config'
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
+import { collection, addDoc, getDocs, doc, updateDoc, deleteDoc,setDoc, onSnapshot, query, where } from "firebase/firestore";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const SignUp = () => {
   const [email, setEmail] = useState('')

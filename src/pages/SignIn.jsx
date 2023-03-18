@@ -10,12 +10,13 @@ const SignIn = () => {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const navigate = useNavigate()
-  const { logIn } = UserAuth()
+  const { logIn,user } = UserAuth()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
     try{
       await logIn(email, password)
+      console.log(user);
       navigate('/')
     }catch(err){
       setError(err.message)
