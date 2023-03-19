@@ -6,7 +6,7 @@ const Card = ({ job }) => {
 
     return (
         <div className='m-2'>
-            <div className="max-w-[900px] h-full   rounded-xl overflow-hidden shadow-2xl bg-white   justify-between items-center my-1 mx-1 p-3">
+            <div className="max-w-[900px] h-full max-h-[500px]   rounded-xl overflow-hidden shadow-2xl bg-white   justify-between items-center my-1 mx-1 p-3">
                 <div className="px-6 py-4 flex flex-col items-center">
                     <div>
                         <img
