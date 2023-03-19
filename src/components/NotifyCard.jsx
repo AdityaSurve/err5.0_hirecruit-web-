@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { AiFillRightCircle, AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai'
+import { AiFillCaretUp, AiFillRightCircle, AiOutlineCheckCircle, AiOutlineCloseCircle } from 'react-icons/ai'
 import { useNavigate } from 'react-router-dom'
 import { app, database, storage } from '../firebase-config'
 import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
@@ -72,19 +72,12 @@ const NotifyCard = ({ user ,jobid}) => {
                         })}
                     </div>
                     <div className='flex gap-2 px-6 pt-4 pb-2'>
-                        {!accepted?<><button
-                            className='flex bg-green-500 text-white font-semibold rounded-xl gap-2 p-1 items-center '
-                            onClick={handleAccept}
-                        >Accept <AiOutlineCheckCircle className='text-xl' /></button>
+                        
                         <button
-                            className='bg-red-500 flex text-white font-semibold rounded-xl gap-2 p-1 items-center '
+                            className='bg-blue-500 flex text-white font-semibold rounded-xl gap-2 p-1 items-center '
                             onClick={handleDecline}
-                        >Reject <AiOutlineCloseCircle className='text-xl' /></button>
-                        </>:<button
-                            className='flex bg-green-500 text-white font-semibold rounded-xl gap-2 p-1 items-center '
-                        >Accepted ! <AiOutlineCheckCircle className='text-xl' /></button>}
+                        >{jobstate} <AiFillCaretUp className='text-xl' /></button>
                     </div>
-
                 </div>
             </div>
         </div>

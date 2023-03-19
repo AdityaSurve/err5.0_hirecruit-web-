@@ -2,6 +2,7 @@ import { collection, doc, getDoc, onSnapshot } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import Applycard from '../components/Applycard'
+import NotifyCard from '../components/NotifyCard'
 import { database } from '../firebase-config'
 
 const Notifications = () => {
@@ -31,13 +32,13 @@ const Notifications = () => {
                 
                 <hr></hr>
                 <div>
-                    <p className='font-bold text-2xl mt-2 mb-1'>Job Applicants</p>
+                    <p className='font-bold text-2xl mt-2 mb-1'>Job Applications</p>
                     <div className='flex flex-col overflow-y-scroll max-h-[500px]'>
 
                         {jobs.map((item) => {
 
                             return (
-                                <Applycard job={item.data()} />
+                                <NotifyCard job={item.data()} />
                             );
                         }, [])}
                     </div>
