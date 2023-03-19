@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router'
 import Applycard from '../components/Applycard'
 import NotifyCard from '../components/NotifyCard'
 import { database } from '../firebase-config'
+import NotifyCard from '../components/NotifyCard'
 
 const Notifications = () => {
 
