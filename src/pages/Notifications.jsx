@@ -1,29 +1,29 @@
-import { collection, doc, getDoc, onSnapshot } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import Applycard from '../components/Applycard'
 import NotifyCard from '../components/NotifyCard'
-import { database } from '../firebase-config'
-import NotifyCard from '../components/NotifyCard'
+import { app, database, storage } from '../firebase-config'
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
+import { collection, addDoc, getDoc, getDocs, doc, updateDoc, deleteDoc, setDoc, onSnapshot, query, where, arrayUnion, arrayRemove } from "firebase/firestore";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
+import { UserAuth } from '../contexts/AuthContext'
 
 const Notifications = () => {
-
-    const [job, setjob] = useState({})
-
-    
+    const {user,logOut} = UserAuth()
     const navigate = useNavigate()
-
+    const collectionRef = collection(database, "job");
     const [jobs, setjobs] = useState([])
-    const collectionRef = collection(database, 'job');
     useEffect(() => {
         getJobs();
     }, [])
 
     const getJobs = async () => {
-        const collectionRef = collection(database, "job");
-        onSnapshot(collectionRef, (hacklist) => {
+        
+        const nameQuery=query(collectionRef,where("applicants","array-contains",user.uid))
+        onSnapshot(nameQuery, (hacklist) => {
             setjobs(hacklist.docs);
         })
+        console.log(jobs);
     }
 
   return (
@@ -33,7 +33,7 @@ const Notifications = () => {
                 
                 <hr></hr>
                 <div>
-                    <p className='font-bold text-2xl mt-2 mb-1'>Job Applications</p>
+                    <p className='font-bold text-2xl mt-2 mb-1'>Job Applications </p>
                     <div className='flex flex-col overflow-y-scroll max-h-[500px]'>
 
                         {jobs.map((item) => {
