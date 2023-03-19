@@ -156,7 +156,7 @@ const UserProfile = () => {
     let newInput = { [event.target.name]: event.target.value };
     setdata({ ...data, ...newInput });
   };
-  const [datafile, setDataFile] = useState(null);
+  const [datafile, setDataFile] = useState([]);
   const handleFileChange = (event) => {
     const file = event.target.files[0];
     const formData = new FormData();
@@ -167,8 +167,12 @@ const UserProfile = () => {
     })
       .then((response) => response.json())
       .then((datafile) => {
-        console.log(datafile);
+        console.log(typeof datafile);
         setDataFile(datafile);
+
+        updateDoc(doc(database, "users", user.uid), {
+          skills: arrayUnion(...datafile.skills),
+        });
       })
       .catch((error) => {
         console.error(error);
@@ -237,19 +241,18 @@ const UserProfile = () => {
         </div>
       </div>
       <hr></hr>
-      {datafile && (
+      {/* {datafile && (
         <div>
           <p>Phone: {datafile.phone}</p>
-          <p>Skills: {datafile.skills.join(", ")}</p>
-          {/* <p>Text: {data.college.join(", ")}</p> */}
+          <p>Skills: {datafile?.skills?.join(", ")}</p>
         </div>
-      )}
+      )} */}
       <div className=" mt-10 mb-3">
         <div className="ml-6">
           <p className="text-2xl font-semibold">Skills</p>
         </div>
-        <div className="flex justify-between items-baseline mx-6">
-          <div className="flex gap-3">
+        <div className="flex justify-between items-baseline mt-3">
+          <div className="grid grid-cols-5 gap-3 ">
             {fireuser?.skills?.map((skill) => {
               return (
                 // <span className='my-2 text-white bg-blue-500 m-1 p-2 rounded-xl'>{skill} <span><AiOutlineCloseCircle /></span></span>

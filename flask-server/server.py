@@ -68,6 +68,20 @@ def upload():
     }
     return jsonify(result)
 
+@app.route('/compare', methods=['POST'])
+def compare_lists():
+    required_skills = request.json['list1']
+    candidate_skills = request.json['list2']
+    required_skills=required_skills.lower()
+    required_set = set(required_skills)
+    candidate_set = set(candidate_skills)
+    common_skills = required_set.intersection(candidate_set)
+    similarity = (len(common_skills) / len(required_set)) * 100
+    similarity_str = str(similarity) + '%'
+    result = {
+        "JFS": similarity_str,
+    }
+    return jsonify(result)
 
 if __name__ == '__main__':
     app.run(debug=True)
