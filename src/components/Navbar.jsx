@@ -36,7 +36,7 @@ const Navbar = ({isTopOfpage}) => {
           {user?.email ? (
             <div>
               <div className='hidden md:block'>
-                <button className=' hover:scale-105  mx-3 '>Home</button>
+                <button className=' hover:scale-105  mx-3 '><Link to='/'>Home</Link></button>
                 <button className=' hover:scale-105  mx-3 '>
                 <Link to='/postjob'>Post a Job</Link></button>
                 <button className=' hover:scale-105  mx-3 '><Link to='/search'>Search</Link></button>
@@ -50,7 +50,7 @@ const Navbar = ({isTopOfpage}) => {
             </div>
           ) : (
             <div className="hidden md:block">
-              <button className=' hover:scale-105  mx-3 '>Home</button>
+              <button className=' hover:scale-105  mx-3 '><Link to='/'>Home</Link></button>
               <button className=' hover:scale-105  mx-3 '>Post a Job</button>
               <button className=' hover:scale-105  mx-3 '><Link to='/search'>Search</Link></button>
               <button className=' font-bold mx-1 mr-2 hover:scale-105  p-2 rounded-xl'

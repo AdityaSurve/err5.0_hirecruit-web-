@@ -176,10 +176,12 @@ const UserProfile = () => {
                 <div className='ml-6'>
                     <p className='text-2xl font-semibold'>Education</p>
                 </div>
-                <div className='flex justify-between items-baseline mx-6'>
+                <div className='flex mt-3 justify-between items-baseline mx-6'>
+                    <div className='flex gap-3 overflow-x-scroll'>
+
                     {fireuser?.education?.map((edu) => {
                         return (
-                            <div>
+                            <div className='p-3 border-2 border-blue-400 bg-white rounded-xl '>
                                 <p className='my-2 text-xl'>{edu.instname}
                                 </p>
                                 <p className='my-2 text-xl'>{edu.desc}
@@ -194,6 +196,7 @@ const UserProfile = () => {
                             </div>
                         )
                     }, [])}
+                    </div>
                     <p>
                         <Button variant="primary" className='rounded-full' onClick={handleShoweducation}>
                             <span><AiFillPlusCircle className='text-2xl text-blue-500  hover:text-white cursor-pointer ' /></span>
@@ -206,10 +209,11 @@ const UserProfile = () => {
                 <div className='ml-6'>
                     <p className='text-2xl font-semibold'>Projects</p>
                 </div>
-                <div className='flex justify-between items-baseline mx-6'>
+                <div className='flex justify-between items-baseline mt-3 mx-6'>
+                <div className='flex gap-3 overflow-x-scroll'>
                     {fireuser?.project?.map((pro) => {
                         return (
-                            <div>
+                            <div className='p-3 border-2 border-blue-400 bg-white rounded-xl'>
                                 <p className='my-2 text-xl'>{pro.protitle}
                                 </p>
                                 <p className='my-2 text-xl'>{pro.links}
@@ -222,6 +226,7 @@ const UserProfile = () => {
                             </div>
                         )
                     }, [])}
+                    </div>
                     <p>
                         <Button variant="primary" className='rounded-full' onClick={handleShowproject}>
                             <span><AiFillPlusCircle className='text-2xl text-blue-500  hover:text-white cursor-pointer ' /></span>
@@ -234,10 +239,11 @@ const UserProfile = () => {
                 <div className='ml-6'>
                     <p className='text-2xl font-semibold'>Experience</p>
                 </div>
-                <div className='flex justify-between items-baseline mx-6'>
+                <div className='flex justify-between mt-3 items-baseline mx-6'>
+                <div className='flex gap-3 overflow-x-scroll'>
                     {fireuser?.experience?.map((exp) => {
                         return (
-                            <div>
+                            <div className='p-3 border-2 border-blue-400 bg-white rounded-xl'>
                                 <p className='my-2 text-xl'>{exp.title}
                                 </p>
                                 <p className='my-2 text-xl'>{exp.compname}
@@ -252,6 +258,7 @@ const UserProfile = () => {
                             </div>
                         )
                     }, [])}
+                    </div>
                     <p>
                         <Button variant="primary" className='rounded-full' onClick={handleShowexper}>
                             <span><AiFillPlusCircle className='text-2xl text-blue-500  hover:text-white cursor-pointer ' /></span>

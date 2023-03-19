@@ -94,9 +94,9 @@ console.log(jobs)
   }
 
   return (
-    <div className='min-h-[630px] '>
+    <div className={`min-h-[630px]  `} >
       <div className='flex flex-col  justify-center space-x-4 mt-6'>
-
+        <p className='text-xl font-semibold text-center'>Search for a job of your Choice</p>
         <div className="flex  justify-center space-x-4 my-3">
           {/* <input
             type="text"
@@ -124,7 +124,7 @@ console.log(jobs)
             <ReactSearchAutocomplete
               items={jobsearch}
               onSearch={handleOnSearch}
-              onSelect={handleOnSelect}
+              // onSelect={handleOnSelect}
               autoFocus
               formatResult={formatResult}
             />
