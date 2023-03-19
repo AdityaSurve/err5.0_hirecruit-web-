@@ -41,7 +41,7 @@ const Navbar = ({isTopOfpage}) => {
                 <Link to='/postjob'>Post a Job</Link></button>
                 <button className=' hover:scale-105  mx-3 '><Link to='/search'>Search</Link></button>
                 <button className=' font-bold mx-1 mr-2 p-1 hover:scale-105'
-                ><Link to='/profile'>Account</Link></button>
+                ><Link to='/profile'>{user.displayName}</Link></button>
                 <button onClick={handleLogout}
                 className='navbutton p-2 rounded-xl'
                 // className='text-white bg-gradient-to-r from-indigo-500 to-purple-500 font-semibold mx-1 p-2 rounded-3xl px-3 hover:scale-105 '

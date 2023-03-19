@@ -40,7 +40,8 @@ const PostJob = () => {
 
     const getJobs = async () => {
         const collectionRef = collection(database, "job");
-        onSnapshot(collectionRef, (hacklist) => {
+        const idQuery=query(collectionRef,where("ename","==",user.displayName))
+        onSnapshot(idQuery, (hacklist) => {
             setjobs(hacklist.docs);
         })
     }
