@@ -1,42 +1,37 @@
-import { collection, doc, getDoc, onSnapshot } from '@firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router'
 import Applycard from '../components/Applycard'
-import { database } from '../firebase-config'
+import { app, database, storage } from '../firebase-config'
+import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut, updateProfile } from "firebase/auth";
+import { collection, addDoc, getDoc, getDocs, doc, updateDoc, deleteDoc, setDoc, onSnapshot, query, where, arrayUnion, arrayRemove } from "firebase/firestore";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 
 const Jobapp = () => {
+    const navigate = useNavigate()
     const { jobid } = useParams()
     const [job, setjob] = useState({})
+    const [users, setusers] = useState([])
+    const collectionRef = collection(database, "users" );
 
     useEffect(() => {
         getDeets();
+        getJob();
     }, [])
+
+    const getJob=async()=>{
+      const docRef = doc(database, "job", jobid);
+      const docSnap = await getDoc(docRef);
+      setjob(docSnap.data())
+    }
 
     const getDeets = async () => {
-        const docRef = doc(database, "job", jobid);
-        const docSnap = await getDoc(docRef);
-        setjob(docSnap.data())
+      const nameQuery=query(collectionRef,where("appliedfor","array-contains",jobid))
+        // const docSnap = await getDoc(docRef);
+        // setjob(docSnap.data())
+        onSnapshot(nameQuery, (hacklist) => {
+          setusers(hacklist.docs);
+      })
     }
-
-    let longString = job.desc
-    let newString = longString?.split('•').join('.<br>');
-
-    const [search, setSearch] = useState('')
-    const navigate = useNavigate()
-
-    const [jobs, setjobs] = useState([])
-    const collectionRef = collection(database, 'job');
-    useEffect(() => {
-        getJobs();
-    }, [])
-
-    const getJobs = async () => {
-        const collectionRef = collection(database, "job");
-        onSnapshot(collectionRef, (hacklist) => {
-            setjobs(hacklist.docs);
-        })
-    }
-
 
     return (
         <div className='min-h-[630px] mx-[50px]'>
@@ -67,10 +62,10 @@ const Jobapp = () => {
                     <p className='font-bold text-2xl mt-2 mb-1'>Job Applicants</p>
                     <div className='flex flex-col overflow-y-scroll max-h-[500px]'>
 
-                        {jobs.map((item) => {
+                        {users.map((item) => {
 
                             return (
-                                <Applycard job={item.data()} />
+                                <Applycard user={item.data()} jobid={jobid}/>
                             );
                         }, [])}
                     </div>
