@@ -13,6 +13,7 @@ import UserProfile from './pages/UserProfile';
 import Search from './pages/Search';
 import Feedback from './pages/Feedback';
 import Jobapp from './pages/Jobapp';
+import Notifications from './pages/Notifications';
 
 
 function App() {
@@ -44,6 +45,7 @@ function App() {
           <Route path='/search/:topic' element={<Search />} />
           <Route path='/feedback' element={<Feedback/>} />
           <Route path='/applications/:jobid' element={<Jobapp/>} />
+          <Route path='/notifications' element={<Notifications/>} />
         </Routes>
         <Footer />
       </BrowserRouter>

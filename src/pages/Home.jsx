@@ -87,7 +87,7 @@ const Home = () => {
           </div>
         </div>
         <div>
-          <img src='http://get2.imglarger.com:8889/results/jqdRMkuC_4x.jpg' alt='/' />
+          <img src='http://get2.imglarger.com:8889/results/m0ICyKe6_4x.jpg' alt='/' />
         </div>
       </div>
 

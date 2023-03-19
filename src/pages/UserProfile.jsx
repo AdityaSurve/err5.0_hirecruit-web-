@@ -292,18 +292,20 @@ const UserProfile = () => {
         <div className="ml-6">
           <p className="text-2xl font-semibold">Education</p>
         </div>
-        <div className="flex justify-between items-baseline mx-6">
+        <div className="flex justify-between mt-3 items-baseline mx-6">
+          <div className='flex overflow-x-scroll gap-3'>
           {fireuser?.education?.map((edu) => {
             return (
-              <div>
+              <div className="border-2 border-blue-500 p-3 max-w-[400px] rounded-xl">
                 <p className="my-2 text-xl">{edu.instname}</p>
-                <p className="my-2 text-xl">{edu.desc}</p>
+                <p className="my-2 text-xl">{edu.desc }</p>
                 <p className="my-2 text-xl">{edu.duration}</p>
                 <p className="my-2 text-xl">{edu.degree}</p>
                 <p className="my-2 text-xl">{edu.grade}</p>
               </div>
             );
           }, [])}
+          </div>
           <p>
             <Button
               variant="primary"
@@ -322,10 +324,11 @@ const UserProfile = () => {
         <div className="ml-6">
           <p className="text-2xl font-semibold">Projects</p>
         </div>
-        <div className="flex justify-between items-baseline mx-6">
+        <div className="flex justify-between mt-3 items-baseline mx-6">
+        <div className='flex overflow-x-scroll gap-3'>
           {fireuser?.project?.map((pro) => {
             return (
-              <div>
+              <div className="border-2 border-blue-500 p-3 max-w-[400px] rounded-xl">
                 <p className="my-2 text-xl">{pro.protitle}</p>
                 <p className="my-2 text-xl">{pro.links}</p>
                 <p className="my-2 text-xl">{pro.time}</p>
@@ -333,6 +336,7 @@ const UserProfile = () => {
               </div>
             );
           }, [])}
+          </div>
           <p>
             <Button
               variant="primary"
@@ -351,10 +355,11 @@ const UserProfile = () => {
         <div className="ml-6">
           <p className="text-2xl font-semibold">Experience</p>
         </div>
-        <div className="flex justify-between items-baseline mx-6">
+        <div className="flex justify-between mt-3 items-baseline mx-6">
+        <div className='flex overflow-x-scroll gap-3'>
           {fireuser?.experience?.map((exp) => {
             return (
-              <div>
+              <div className="border-2 border-blue-500 p-3 max-w-[400px] rounded-xl">
                 <p className="my-2 text-xl">{exp.title}</p>
                 <p className="my-2 text-xl">{exp.compname}</p>
                 <p className="my-2 text-xl">{exp.loc}</p>
@@ -363,6 +368,7 @@ const UserProfile = () => {
               </div>
             );
           }, [])}
+          </div>
           <p>
             <Button
               variant="primary"

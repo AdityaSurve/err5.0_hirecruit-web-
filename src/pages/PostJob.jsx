@@ -40,7 +40,8 @@ const PostJob = () => {
 
     const getJobs = async () => {
         const collectionRef = collection(database, "job");
-        onSnapshot(collectionRef, (hacklist) => {
+        const idQuery=query(collectionRef,where("ename","==",user.displayName))
+        onSnapshot(idQuery, (hacklist) => {
             setjobs(hacklist.docs);
         })
     }
@@ -124,7 +125,7 @@ const PostJob = () => {
             location: data?.loc,
             desc: data?.desc,
             ename: fireuser?.name,
-            logo: fireuser?.imageURL,
+            logo: fireuser?.imageURL?fireuser?.imageURL:"https://img.freepik.com/free-icon/user_318-159711.jpg",
             qual: arrayUnion(...reqdquals),
             resp: arrayUnion(...reqdresps),
             skills: arrayUnion(...reqdskills)
